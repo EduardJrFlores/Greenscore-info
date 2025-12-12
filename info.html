@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenscore - Rewarding Sustainable Actions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            scroll-behavior: smooth;
+        }
+        .hero-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .scale-in {
+            animation: scaleIn 0.6s ease-out;
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .bounce-hover {
+            transition: all 0.3s ease;
+        }
+        .bounce-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        nav.scrolled .nav-link {
+            color: #374151;
+        }
+        nav.scrolled .nav-link:hover {
+            color: #059669;
+        }
+        nav.scrolled button {
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="bg-emerald-600 p-2 rounded-lg">
+                        <svg class="icon w-6 h-6 text-white" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold text-white" id="logo-text">Greenscore</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-white hover:text-emerald-300 transition-colors font-medium nav-link">Home</a>
+                    <a href="#about" class="text-white hover:text-emerald-300 transition-colors font-medium nav-link">About Us</a>
+                    <a href="#mission" class="text-white hover:text-emerald-300 transition-colors font-medium nav-link">Mission & Vision</a>
+                    <a href="#contact" class="text-white hover:text-emerald-300 transition-colors font-medium nav-link">Contact</a>
+                    <a href="#" class="bg-white text-emerald-600 hover:bg-emerald-50 px-6 py-2 rounded-lg font-semibold transition-all">Download App</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <svg class="icon w-6 h-6" viewBox="0 0 24 24">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home" class="block text-gray-800 hover:text-emerald-600 transition-colors font-medium">Home</a>
+                <a href="#about" class="block text-gray-800 hover:text-emerald-600 transition-colors font-medium">About Us</a>
+                <a href="#mission" class="block text-gray-800 hover:text-emerald-600 transition-colors font-medium">Mission & Vision</a>
+                <a href="#contact" class="block text-gray-800 hover:text-emerald-600 transition-colors font-medium">Contact</a>
+                <a href="#" class="block bg-emerald-600 text-white text-center px-6 py-2 rounded-lg font-semibold">Download App</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-br from-emerald-600 via-green-600 to-teal-600 text-white pt-24 pb-20 overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-48 -mt-48 float"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32 float" style="animation-delay: 1s;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="slide-in-left">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Turn Waste Into Worth
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-emerald-100 mb-8">
+                        Every recycled item earns you points. Every point makes a difference.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#about" class="bg-white text-emerald-600 hover:bg-emerald-50 px-8 py-4 rounded-xl font-bold text-lg transition-all text-center shadow-xl">
+                            Learn More
+                        </a>
+                        <a href="#contact" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 px-8 py-4 rounded-xl font-bold text-lg transition-all text-center">
+                            Get Started
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-6 mt-12">
+                        <div class="scale-in">
+                            <div class="text-3xl sm:text-4xl font-bold mb-1">50K+</div>
+                            <div class="text-emerald-100 text-sm">Active Users</div>
+                        </div>
+                        <div class="scale-in" style="animation-delay: 0.2s;">
+                            <div class="text-3xl sm:text-4xl font-bold mb-1">2M kg</div>
+                            <div class="text-emerald-100 text-sm">Plastic Recycled</div>
+                        </div>
+                        <div class="scale-in" style="animation-delay: 0.4s;">
+                            <div class="text-3xl sm:text-4xl font-bold mb-1">100+</div>
+                            <div class="text-emerald-100 text-sm">Partner Locations</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative slide-in-right">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 bounce-hover">
+                        <div class="bg-gradient-to-br from-white to-emerald-50 rounded-2xl p-6 text-gray-800 shadow-2xl">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="bg-emerald-100 p-3 rounded-xl">
+                                    <svg class="icon text-emerald-600" viewBox="0 0 24 24">
+                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-gray-600">Your Balance</div>
+                                    <div class="text-3xl font-bold text-emerald-600">2,847</div>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-4 bg-emerald-50 rounded-xl">
+                                    <span class="font-semibold">Recent Deposit</span>
+                                    <span class="text-emerald-600 font-bold">+150</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                                    <span class="font-semibold">This Week</span>
+                                    <span class="text-green-600 font-bold">+420</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 sm:py-24 bg-gradient-to-br from-gray-50 to-emerald-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">About Greenscore</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    We're building a sustainable future by making recycling rewarding and accessible for everyone.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-start mb-20">
+            <!-- Left column -->
+            <div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
+                Transforming Recycling Through Innovation
+                </h3>
+                <p class="text-gray-700 mb-4 text-lg leading-relaxed">
+                Greenscore is a revolutionary digital wallet system that rewards users for their recycling efforts. We believe that environmental responsibility should be incentivized, not just encouraged.
+                </p>
+                <p class="text-gray-700 mb-8 text-lg leading-relaxed">
+                By partnering with collection centers and local businesses, we've created an ecosystem where your sustainable choices translate into real, tangible benefits. From paying utility bills to enjoying discounts at partner stores, your Greenscore points give you the power to live sustainably while saving money.
+                </p>
+                <div class="flex items-start gap-4 bg-white p-6 rounded-2xl shadow-md border-2 border-emerald-100">
+                <svg class="icon w-8 h-8 text-emerald-600 flex-shrink-0 mt-1" viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-2">Our Commitment</h4>
+                    <p class="text-gray-600">
+                    We're dedicated to making the Philippines a leader in sustainable waste management and circular economy practices.
+                    </p>
+                </div>
+                </div>
+            </div>
+
+            <!-- Right column cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-emerald-100 bounce-hover">
+                <div class="bg-emerald-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="icon w-7 h-7 text-emerald-600" viewBox="0 0 24 24">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path>
+                    </svg>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-1">Easy Recycling</h4>
+                <p class="text-gray-600 text-sm">Drop off recyclables at any partner location.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-green-100 bounce-hover">
+                <div class="bg-green-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="icon w-7 h-7 text-green-600" viewBox="0 0 24 24">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                    </svg>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-1">Earn Points</h4>
+                <p class="text-gray-600 text-sm">Get instant rewards for every deposit.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-teal-100 bounce-hover">
+                <div class="bg-teal-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="icon w-7 h-7 text-teal-600" viewBox="0 0 24 24">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-1">Spend Wisely</h4>
+                <p class="text-gray-600 text-sm">Use points for bills and purchases.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-blue-100 bounce-hover">
+                <div class="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="icon w-7 h-7 text-blue-600" viewBox="0 0 24 24">
+                    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
+                    </svg>
+                </div>
+                <h4 class="font-bold text-gray-900 mb-1">Track Impact</h4>
+                <p class="text-gray-600 text-sm">Monitor your environmental contribution.</p>
+                </div>
+            </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl">
+                <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">How It Works</h3>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="bg-emerald-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-emerald-600">1</span>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">Sign Up</h4>
+                        <p class="text-gray-600 text-sm">Download the app and create your free account</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-green-600">2</span>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">Collect</h4>
+                        <p class="text-gray-600 text-sm">Gather and segregate your plastic waste</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-teal-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-teal-600">3</span>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">Deposit</h4>
+                        <p class="text-gray-600 text-sm">Visit any collection point and deposit</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl font-bold text-blue-600">4</span>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">Enjoy</h4>
+                        <p class="text-gray-600 text-sm">Use your points for bills and rewards</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section id="mission" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Our Mission & Vision</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Driving change through purpose and innovation
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl p-8 sm:p-12 text-white shadow-2xl slide-in-left bounce-hover">
+                    <div class="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="icon w-8 h-8" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6">Our Mission</h3>
+                    <p class="text-emerald-50 text-lg leading-relaxed mb-6">
+                        To create a sustainable ecosystem where environmental responsibility is rewarded, accessible, and beneficial for all Filipinos.
+                    </p>
+                    <p class="text-emerald-50 text-lg leading-relaxed">
+                        We aim to reduce plastic waste in landfills and oceans by incentivizing proper recycling practices through innovative technology and community partnerships.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-3xl p-8 sm:p-12 text-white shadow-2xl slide-in-right bounce-hover">
+                    <div class="bg-white/20 backdrop-blur-sm w-16 h-16 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="icon w-8 h-8" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 16v-4M12 8h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-6">Our Vision</h3>
+                    <p class="text-teal-50 text-lg leading-relaxed mb-6">
+                        A Philippines where zero waste is not just a goal, but a reality—where every citizen actively participates in building a cleaner, greener nation.
+                    </p>
+                    <p class="text-teal-50 text-lg leading-relaxed">
+                        We envision Greenscore as the leading platform that transforms waste management into wealth generation, creating lasting positive impact for our environment and communities.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Core Values -->
+            <div class="bg-gradient-to-br from-gray-50 to-emerald-50 rounded-3xl p-8 sm:p-12">
+                <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">Our Core Values</h3>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="bg-white w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg border-2 border-emerald-200">
+                            <svg class="icon w-10 h-10 text-emerald-600" viewBox="0 0 24 24">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Sustainability</h4>
+                        <p class="text-gray-600 text-sm">Environmental care at our core</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-white w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg border-2 border-green-200">
+                            <svg class="icon w-10 h-10 text-green-600" viewBox="0 0 24 24">
+                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Community</h4>
+                        <p class="text-gray-600 text-sm">Building together for impact</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-white w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg border-2 border-teal-200">
+                            <svg class="icon w-10 h-10 text-teal-600" viewBox="0 0 24 24">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Innovation</h4>
+                        <p class="text-gray-600 text-sm">Tech-driven solutions</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-white w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg border-2 border-blue-200">
+                            <svg class="icon w-10 h-10 text-blue-600" viewBox="0 0 24 24">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Integrity</h4>
+                        <p class="text-gray-600 text-sm">Transparent and trustworthy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-24 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-xl text-emerald-100 max-w-3xl mx-auto">
+                    Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 slide-in-left">
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-emerald-100">Full Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-emerald-200 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Juan Dela Cruz">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-emerald-100">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-emerald-200 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="juan@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-emerald-100">Phone Number</label>
+                            <input type="tel" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-emerald-200 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="+63 912 345 6789">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-emerald-100">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-emerald-200 focus:outline-none focus:ring-2 focus:ring-white/50 resize-none" placeholder="Tell us how we can help..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-white text-emerald-600 hover:bg-emerald-50 py-4 rounded-xl font-bold text-lg transition-all shadow-xl hover:shadow-2xl hover:scale-105">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-8 slide-in-right">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 bounce-hover">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white/20 p-3 rounded-xl flex-shrink-0">
+                                <svg class="icon w-6 h-6" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Office Address</h4>
+                                <p class="text-emerald-100">123 Sustainability Avenue<br>Makati City, Metro Manila<br>Philippines 1200</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 bounce-hover" style="animation-delay: 0.1s;">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white/20 p-3 rounded-xl flex-shrink-0">
+                                <svg class="icon w-6 h-6" viewBox="0 0 24 24">
+                                    <path d="M17 10.5V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-3.5"></path>
+                                    <path d="M16 8.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Phone</h4>
+                                <p class="text-emerald-100">+63 917 123 4567<br>+63 2 8000 0000</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 bounce-hover" style="animation-delay: 0.2s;">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white/20 p-3 rounded-xl flex-shrink-0">
+                                <svg class="icon w-6 h-6" viewBox="0 0 24 24">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Email</h4>
+                                <p class="text-emerald-100">hello@greenscore.com<br>support@greenscore.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 bounce-hover" style="animation-delay: 0.3s;">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-white/20 p-3 rounded-xl flex-shrink-0">
+                                <svg class="icon w-6 h-6" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="1"></circle>
+                                    <circle cx="19" cy="12" r="1"></circle>
+                                    <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Hours</h4>
+                                <p class="text-emerald-100">Monday - Friday: 9AM - 6PM<br>Saturday: 10AM - 4PM<br>Sunday: Closed</p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-emerald-600 p-2 rounded-lg">
+                            <svg class="icon w-5 h-5 text-white" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <span class="font-bold text-lg">Greenscore</span>
+                    </div>
+                    <p class="text-slate-400 text-sm">Making sustainability rewarding, one action at a time.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4 text-emerald-400">Quick Links</h5>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#home" class="hover:text-emerald-400 transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-emerald-400 transition-colors">About</a></li>
+                        <li><a href="#mission" class="hover:text-emerald-400 transition-colors">Mission</a></li>
+                        <li><a href="#contact" class="hover:text-emerald-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4 text-emerald-400">Legal</h5>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><a href="#" class="hover:text-emerald-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-4 text-emerald-400">Follow Us</h5>
+                    <div class="flex gap-4">
+                        <a href="#" class="bg-slate-800 hover:bg-emerald-600 p-2 rounded-lg transition-colors">
+                            <svg class="icon w-5 h-5" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a6 6 0 0 0-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a2 2 0 0 1 2-2h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="bg-slate-800 hover:bg-emerald-600 p-2 rounded-lg transition-colors">
+                            <svg class="icon w-5 h-5" viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2s9 5 20 5a9.5 9.5 0 0 0-9-5.5c4.75 2.25 7-7 7-7"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="bg-slate-800 hover:bg-emerald-600 p-2 rounded-lg transition-colors">
+                            <svg class="icon w-5 h-5" viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="currentColor"></path>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"></circle>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-700 pt-8 text-center text-slate-400">
+                <p>&copy; 2025 Greenscore. All rights reserved. | Rewarding Sustainable Actions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+                document.getElementById('logo-text').classList.add('text-gray-800');
+                document.getElementById('logo-text').classList.remove('text-white');
+            } else {
+                navbar.classList.remove('scrolled');
+                document.getElementById('logo-text').classList.remove('text-gray-800');
+                document.getElementById('logo-text').classList.add('text-white');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth animated scroll for header/footer links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+
+                // Ignore plain "#" dummy links
+                if (!href || href === '#') return;
+
+                const target = document.querySelector(href);
+                if (!target) return;
+
+                e.preventDefault();
+
+                const navbar = document.getElementById('navbar');
+                const headerOffset = navbar.offsetHeight; // dynamic header height
+
+                const rect = target.getBoundingClientRect();
+                const offsetTop = rect.top + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth' // this creates the animated “go down” effect
+                });
+            });
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.querySelector('input[type="text"]').value;
+            const email = document.querySelector('input[type="email"]').value;
+            const phone = document.querySelector('input[type="tel"]').value;
+            const message = document.querySelector('textarea').value;
+
+            if (name && email && phone && message) {
+                alert('Thank you for your message! We will get back to you soon.');
+                document.querySelector('form').reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+</body>
+</html>
